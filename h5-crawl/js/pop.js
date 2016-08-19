@@ -1,5 +1,12 @@
 
 $(function () {
+
+// 判断是否需要清理数据
+ if(LocalDay.isClear()){
+
+     clearDBTime();
+
+ }
    
 //开始
   $("#startId").on("click",function(){

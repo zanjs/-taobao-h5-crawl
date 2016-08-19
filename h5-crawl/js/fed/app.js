@@ -8,6 +8,19 @@ var PLorderInfo = {
         
         var Pt = P.text();
 
+        if(!Pt.trim().split(/订单详情/)[1]){
+           
+            errorOrderIdNum.clear();
+             return false;
+        }
+
+        if(Pt.trim().split(/订单详情/)[1].trim() == '没有该订单相关的信息'){
+            errorIDMessg(GetQueryString("bizOrderId"));
+            errorOrderIdNum.clear();
+            return false;
+        }
+       
+
         if(P.length = 0){
             return false;
         }
@@ -22,6 +35,10 @@ var PLorderInfo = {
         catch(err)
         {
             console.log(err);
+        }
+
+        if(orderId == "" || isNaN(orderId)){
+            orderId = GetQueryString("bizOrderId");
         }
         
         var obj = {
@@ -67,41 +84,62 @@ var PLexpressInfo = {
 function isOrderNull() {
     var _host = window.location;
     var _pathName = _host.pathname;
-
     var mmsg;
 
     if(_pathName == "/mlapp/odetail.html"){
-         PLClearOrderInfo();
-         var orderInfo = PLorderInfo.getText();
-       
-         if(orderInfo.orderState == 1 || orderInfo.orderState == "1"){
-             PLSaveOrderInfo(orderInfo);
+        mmsg = GoGetOrderInfo();
+    }else if(_pathName == "/awp/mtb/oper.htm"){
+         mmsg = GoGetExpressInfo();
+    }else{
+        mmsg = false;
+    }
 
-             expressUrlGo(orderInfo.orderId)
+    return mmsg;
 
-             return false;
-         }
-         
-
-       var  msg = {
-            type: "taobao-information",
-            uName: orderInfo.name,
-            Ocode: orderInfo.orderId,
-            Ycode: '',
-            Zcode: isNaN(orderInfo.payId) ? undefined : orderInfo.payId,
-            UMsg: orderInfo.orderOperate,
-            sta: 100,
-            Ycop: ''
-        };
+}
 
 
-        mmsg = msg;
-    }else {
+//获取 订单信息页面的信息总成
+function GoGetOrderInfo(){
 
-        var expressInfo = PLexpressInfo.getText();
-        var orderInfo = PLGetOrderInfo();
+    PLClearOrderInfo();
 
-        var  msg = {
+    var orderInfo = PLorderInfo.getText();
+
+    if(orderInfo.orderState == 1 || orderInfo.orderState == "1"){
+        PLSaveOrderInfo(orderInfo);
+
+        expressUrlGo(orderInfo.orderId)
+
+        return false;
+    }
+
+    var  msg = {
+        type: "taobao-information",
+        uName: orderInfo.name,
+        Ocode: orderInfo.orderId,
+        Ycode: '',
+        Zcode: isNaN(orderInfo.payId) ? undefined : orderInfo.payId,
+        UMsg: orderInfo.orderOperate,
+        sta: 100,
+        Ycop: ''
+    };
+
+    return msg;  
+}
+
+//获取物流页面的信息总成
+function GoGetExpressInfo(){
+
+    var expressInfo = PLexpressInfo.getText();
+
+    var orderInfo = PLGetOrderInfo();
+
+    var  msg;
+
+    if(PLGetOrderInfo()){
+
+        msg = {
             type: "taobao-information",
             uName: orderInfo.name,
             Ocode: orderInfo.orderId,
@@ -112,16 +150,12 @@ function isOrderNull() {
             Ycop: expressInfo.expName
         };
 
-
-         mmsg = msg;
-    }
-
-
-    return mmsg;
-
+    }else{
+        msg = false;
+    };
+    
+    return msg;
 }
-
-
 
 //暂时保存订单信息
 function PLSaveOrderInfo(obj){
@@ -133,13 +167,11 @@ function PLClearOrderInfo(){
 }
 //获取 订单信息
 function PLGetOrderInfo(){
-  return  JSON.parse(localStorage.getItem('PLSaveOrderInfo'));
+  return  localStorage.getItem('PLSaveOrderInfo') ? JSON.parse(localStorage.getItem('PLSaveOrderInfo')) : false;
 }
 
 //自动登陆
 function PLLoginTaobao(){
-
-    
 
 
 }

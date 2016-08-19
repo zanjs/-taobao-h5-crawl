@@ -156,10 +156,7 @@ function saveOrderIdAll(bizOrderIdAll){
         
         
     }
-    
-    
-    
-    
+      
     syncSetFenPian(obj,"OrderIdAll_"+ltb);
  
     
@@ -208,4 +205,41 @@ function syncSetFenPian(obj,ednTb){
                     });
                     
         }); 
+}
+
+
+
+// 开启时间
+
+var LocalDay = {
+    save:function(){
+        var day = new Date();
+        var date = day.getDate();
+        localStorage.LocalDay = date;
+    },
+    get:function(){
+       if(localStorage.LocalDay){
+           return ocalStorage.LocalDay
+       }
+       var day = new Date();
+       var date = day.getDate();
+       return date;
+
+    },
+    isClear:function(){
+         var day = new Date();
+         var date = day.getDate();
+
+         if(localStorage.LocalDay){
+             if(localStorage.LocalDay == date){
+                 return false;
+             }
+
+             LocalDay.save();
+             return true;
+        }
+        LocalDay.save();
+        return true;
+
+    }
 }

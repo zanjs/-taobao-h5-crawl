@@ -7,16 +7,13 @@
 
      PD(function() {
 
-
          getSetTimeoutF(function(dTime) {
 
              setTimeout(function() {
 
                  var _hostName = window.location.hostname;
 
-
                  startL();
-
 
                  var start = chrome.storage.sync.get(["sl"], function(date) {
                      console.log(date.sl)
@@ -26,16 +23,9 @@
 
                  })
 
-
-
-
              }, dTime);
 
          });
-
-
-
-
 
      });
 
@@ -56,7 +46,6 @@
                  });
                  return;
              }
-
 
              if (request.greeting == "startInfo") {
                  sendResponse({
@@ -81,17 +70,13 @@
      }
 
      if (isOrderNull() == false) {
-
-
          routerUrl();
-
          return
      }
 
      var mmsg = isOrderNull();
 
      chrome.runtime.sendMessage(mmsg);
-
 
      getOrderIndexNum(function(num) {
          console.log(num);
@@ -117,33 +102,18 @@
  // 分片查找id
  function getFenPianId(fenId, mmsg, tindex) {
 
-
      chrome.storage.sync.get(fenId, function(data) {
 
          if (data[fenId]) {
-
              if (data[fenId].length == 0) {
-
-
-
-
                  fenIdJian(function(n) {
-
                      if (n == 0) {
                          noCrawlOrder();
                          return;
                      }
-
                      routerUrl();
-
                      return;
-
-
                  });
-
-
-
-
              }
 
              var _code = data[fenId][0];
@@ -153,7 +123,6 @@
                  dBOrderTbIndex(_code, mmsg, 'orderTbIndex_' + tindex);
              }
 
-
          } else {
              PL.open({
                  content: '订单号未找到',
@@ -161,7 +130,6 @@
              });
 
          }
-
 
      });
 

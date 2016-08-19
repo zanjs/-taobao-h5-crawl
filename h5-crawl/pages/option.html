@@ -25,10 +25,13 @@
     <div>
         <h6>淘宝订单信息详细页 </h6>
         <small>
+         <a class="waves-effect waves-light btn" href="http://login.m.taobao.com/logout.htm" target="_blank" title="退出登陆">切换淘宝账号退出</a>
          <a class="waves-effect waves-light btn" id="stopId"  title="停止">停止</a>
          <a class="waves-effect waves-light btn" id="clearId" target="_blank" title="清除">清除数据</a>
          <a class="waves-effect waves-light btn" id="addOrderId" target="_blank" title="添加订单号">添加订单号</a>
          <a class="waves-effect waves-light btn" id="getOrderId" target="_blank" title="获取订单号">获取订单号</a>
+         
+         由于手淘的特殊性，第一次登陆手淘账号后在订单详细需要手动刷新一次页面，才可以跑起来
         </small>
 
 
@@ -119,7 +122,7 @@
                         <th data-field="id">订单号</th>
                         <th data-field="zid">支付宝交易号</th>
                         <th data-field="name">用户名</th>
-                        <th data-field="msg">买家留言</th>
+                        <th data-field="msg" style="width:150px;">买家留言</th>
                         <th data-field="code">运单号</th>
                         <th data-field="cot">物流公司</th>
                     </tr>
@@ -138,7 +141,7 @@
             </li>
             <li>
                 <span class="cp">
-                当前版本： <a href="javascript:void(0);" id="version" data-v="0.0.2"  >手淘版 v0.0.2 Bate 尝鲜版本</a>
+                当前版本： <a href="javascript:void(0);" id="version" data-v="0.0.3"  >手淘版 v0.0.3 Bate 尝鲜版本</a>
             </span>
             </li>
             <li>

@@ -70,6 +70,20 @@ function clearDB() {
 }
 
 
+function clearDBTime() {
+    chrome.storage.sync.clear(function(data) {
+        console.log(data);
+
+        PD(".order-tbody").html('');
+        PL.open({
+            content: '执行清理数据完成',
+            time: 2
+        });
+         console.log("执行清理")
+
+    })
+}
+
 // url错误提示
 function getSetUrlError() {
 
@@ -80,11 +94,6 @@ function getSetUrlError() {
 
 }
 
-
-
-
-
-
 function errorIDMessg(id) {
 
     var errormsg = {
@@ -92,20 +101,12 @@ function errorIDMessg(id) {
         Ocode: id,
     };
 
-    chrome.runtime.sendMessage(errormsg)
+    chrome.runtime.sendMessage(errormsg);
+
+
+     locationUrlGo(GetQueryString(id));
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //去除空格 
 String.prototype.Trim = function() {
@@ -176,4 +177,45 @@ function get_version() {
 
     return PD("#version").attr("data-v");
 
+}
+
+
+
+var errorOrderIdNum = {
+    get:function(){
+       return getUrlOrderId();
+    },
+    set:function(){
+        if(errorOrderIdNum.get()){
+            // if(localStorage.orderNum){
+            //     localStorage.orderNum = localStorage.getItem("orderNum")+1;
+            // }else{
+            //     localStorage.orderId = errorOrderIdNum.get();
+            //     localStorage.orderNum = 1;
+            // }
+            
+        }
+    },
+    clear:function(){
+        localStorage.removeItem('orderId');
+        localStorage.removeItem('orderNum');
+    },
+    isjump:function(){
+        var num = localStorage.getItem("orderNum");
+        if(num){
+            if(num-0 > 1){
+               
+                return true;
+            }else{
+               
+                return false;
+            }
+            
+        }else{
+           
+             return false;   
+        }
+
+       
+    }
 }
