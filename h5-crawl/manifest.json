@@ -1,62 +1,62 @@
 {
-    "name": "手淘订单信息抓取工具 By Panli",
-    "version": "0.0.3",
-    "manifest_version": 2,
-    "description": "手淘订单信息抓取工具 喵 By Panli @Julian",
-    "icons": {
-        "16": "img/long.png",
-        "48": "img/long.png",
-        "128": "img/long.png"
-    },
+  "name": "手淘订单信息抓取工具 By Panli",
+  "version": "0.0.5",
+  "manifest_version": 2,
+  "description": "手淘订单信息抓取工具 喵 By Panli @Julian",
+  "icons": {
+    "16": "img/long.png",
+    "48": "img/long.png",
+    "128": "img/long.png"
+  },
 
-    "browser_action": {
-        "default_icon": "img/long.png",
-        "default_title": "手淘订单信息抓取工具",
-        "default_popup": "pages/popup.html"
-    },
+  "browser_action": {
+    "default_icon": "img/long.png",
+    "default_title": "手淘订单信息抓取工具",
+    "default_popup": "pages/popup.html"
+  },
 
-    "background": {
-        "persistent": true,
-        "scripts": [
-            "js/all.js"
-        ]
-    },
-    "options_page": "pages/option.html",
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "js/all.js"
+    ]
+  },
+  "options_page": "pages/option.html",
 
-    "permissions": [
-        "tabs",
-        "storage",
-        "system.cpu",
-        "system.memory",
-        "system.storage",
-        "contextMenus",
-        "cookies",
-        "notifications",
-        "alarms",
-        "webNavigation",
-        "\u003Call_urls\u003E"
+  "permissions": [
+    "tabs",
+    "storage",
+    "system.cpu",
+    "system.memory",
+    "system.storage",
+    "contextMenus",
+    "cookies",
+    "notifications",
+    "alarms",
+    "webNavigation",
+    "\u003Call_urls\u003E"
+  ],
+
+  "content_scripts": [{
+    "matches": [
+      "*://h5.m.taobao.com/*",
+      "*://err.tmall.com/*",
+      "*://tradearchive.taobao.com/trade/detail/*"
     ],
+    "js": [
+      "libs/panli.js",
+      "libs/lodash.js",
+      "js/all.js",
+      "js/api.js",
+      "js/get.js",
+      "js/save.js",
+      "js/db.js",
+      "js/url.js",
+      "js/fed/app.js",
+      "js/fed/contentscript.js"
 
-    "content_scripts": [{
-        "matches": [
-            "*://h5.m.taobao.com/*",
-            "*://err.tmall.com/*",
-            "*://tradearchive.taobao.com/trade/detail/*"
-        ],
-        "js": [
-            "libs/panli.js",
-            "libs/lodash.js",
-            "js/all.js",
-            "js/api.js",
-            "js/get.js",
-            "js/save.js",
-            "js/db.js",
-            "js/url.js",
-            "js/fed/app.js",
-            "js/fed/contentscript.js"
-            
-        ],
-        "run_at": "document_end"
-    }]
+    ],
+    "run_at": "document_end"
+  }]
 
 }
