@@ -1,5 +1,7 @@
 ## 手淘订单信息抓取扩展
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zanjs/-taobao-h5-crawl.svg)](https://greenkeeper.io/)
+
 
 > v0.0.5
 
